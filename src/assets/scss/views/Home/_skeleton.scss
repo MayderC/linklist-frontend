@@ -1,0 +1,32 @@
+.home {
+  display: flex;
+  min-height: 80vh;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home__item {
+  width: 50%;
+  min-width: 400px;
+  height: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.home__info {
+  padding-left: 40px;
+}
+
+@media (max-width: 912px) {
+  .home__item {
+    overflow: visible;
+    width: 100%;
+  }
+  .home__info {
+    height: 360px;
+  }
+}

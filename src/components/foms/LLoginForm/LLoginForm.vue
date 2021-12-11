@@ -1,0 +1,156 @@
+<template>
+  <section class="form">
+    <form class="form__login">
+      <h2>Login</h2>
+      <div class="form__container container--email">
+        <label for="email"></label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          v-model="email"
+          @focusin="focus"
+          @focusout="focusRemove"
+          placeholder="Ingrese su correo electronico"
+        />
+      </div>
+      <div class="form__container container--password">
+        <label for="password"></label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          @focusin="focus"
+          @focusout="focusRemove"
+          placeholder="Ingrese su contraseña"
+        />
+      </div>
+      <div class="form__recovery--link">
+        <router-link class="link__recovery" to="/recovery">
+          <p>¿Has olvidado tu contraseña?</p>
+        </router-link>
+      </div>
+      <div class="form__btn--login">
+        <l-buttom @click="sendData" text="Login"></l-buttom>
+      </div>
+    </form>
+  </section>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import LButtom from "@/components/LButtom/LButtom.vue";
+import { login } from "../../../api/auth";
+import { setlocalStorage } from "@/helpers/setLocalStore";
+import { mapMutations } from "vuex";
+
+export default defineComponent({
+  name: "LLoginForm",
+  components: { LButtom },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    ...mapMutations(["updateSateFromStorage", "setLinks"]),
+    focus(event: any) {
+      event.target.parentNode.classList.add("focus-inputs");
+    },
+    focusRemove(event: any) {
+      event.target.parentNode.classList.remove("focus-inputs");
+    },
+
+    sendData() {
+      login(this.email, this.password).then((res) => {
+        if (res.token) {
+          setlocalStorage(res.token, res.user, true);
+          this.setLinks(res.links);
+          this.updateSateFromStorage();
+          this.$router.push("/home");
+        }
+      });
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.form {
+  width: 360px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.form__login {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__login {
+  h2 {
+    color: #6d71f9;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.form__btn--login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__container {
+  border: 2px solid rgb(212, 212, 212);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 20px;
+}
+
+.form__container input {
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.container--password {
+  margin-top: 20px;
+}
+
+.form__recovery--link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+
+  .link__recovery {
+    text-align: center;
+    color: #6d71f9;
+    text-decoration: none;
+  }
+
+  .link__recovery:hover {
+    text-decoration: underline;
+  }
+}
+
+.focus-inputs {
+  border: 2px solid #6d71f9;
+}
+
+@media (max-width: 420px) {
+  .form {
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+</style>
