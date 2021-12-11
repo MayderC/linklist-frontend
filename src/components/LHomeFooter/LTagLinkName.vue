@@ -19,6 +19,7 @@ import { mapState } from "vuex";
 export default defineComponent({
   name: "LTagLinkName",
   props: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     link: {} as any,
   },
   computed: {

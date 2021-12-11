@@ -25,7 +25,9 @@ export default defineComponent({
   methods: {
     ...mapMutations(["setLinks"]),
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updateLinks(value: any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newArr = this.links.filter((l: any) => l._id != value._id);
       this.setLinks(newArr);
     },

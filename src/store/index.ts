@@ -50,10 +50,8 @@ export default createStore({
     },
   },
   actions: {
-    getLInksRequest(ctx, hola) {
-      console.log(hola);
+    getLInksRequest(ctx) {
       getLinks(ctx.state.token).then((res) => {
-        console.log(res);
         ctx.commit("setLinks", res.user.links);
       });
     },

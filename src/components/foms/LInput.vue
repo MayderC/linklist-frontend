@@ -25,12 +25,15 @@ export default defineComponent({
     name: { type: String },
   },
   methods: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updateInput(e: any) {
       this.$emit("update:input", e.target.value);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     focus(event: any) {
       event.target.parentNode.classList.add("focus-inputs");
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     focusRemove(event: any) {
       event.target.parentNode.classList.remove("focus-inputs");
     },

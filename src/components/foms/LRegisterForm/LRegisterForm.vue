@@ -98,7 +98,6 @@ export default defineComponent({
 
     NextFocus(id: string) {
       const input = document.getElementById(id)?.focus();
-      console.log(input);
       return input;
     },
     sendData() {
@@ -119,8 +118,6 @@ export default defineComponent({
             setlocalStorage(res.token, res.user, true);
             this.updateSateFromStorage();
             this.$router.push("/home");
-          } else {
-            console.log("Error al registrarse");
           }
         });
       } else {

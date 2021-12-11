@@ -56,9 +56,11 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["updateSateFromStorage", "setLinks"]),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     focus(event: any) {
       event.target.parentNode.classList.add("focus-inputs");
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     focusRemove(event: any) {
       event.target.parentNode.classList.remove("focus-inputs");
     },

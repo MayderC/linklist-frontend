@@ -17,6 +17,7 @@ export default defineComponent({
   name: "User",
   data() {
     return {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       userLinks: [] as any,
     };
   },
