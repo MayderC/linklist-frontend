@@ -51,7 +51,7 @@
             id="cbox2"
             value="second_checkbox"
           />
-          <label for="cbox2">Mostrar contrseñas</label>
+          <label for="cbox2">Mostrar contraseñas</label>
         </div>
       </section>
 

@@ -30,7 +30,7 @@ export default createStore({
       state.isLogin = false;
       state.user = "";
       state.token = "";
-      state.links = []
+      state.links = [];
     },
 
     pushLink(state, link) {
