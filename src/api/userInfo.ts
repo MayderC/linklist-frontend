@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-const URI = `${process.env.VUE_APP_API_URI}/user`;
+const URI = `${process.env.VUE_APP_API_URI}/link/user`;
 
 export const getUserLinks = async (username: any) => {
   const response = await fetch(`${URI}/${username}`, {

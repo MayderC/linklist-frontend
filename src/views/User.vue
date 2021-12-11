@@ -2,6 +2,9 @@
   <section v-if="links.length > 0" class="list">
     <l-user-link v-for="l in links" :link="l" :key="l.id"></l-user-link>
   </section>
+  <section v-else-if="userLinks.length > 0" class="list">
+    <l-user-link v-for="l in userLinks" :link="l" :key="l.id"></l-user-link>
+  </section>
   <section v-else class="list text">
     <h2>No hay Links disponibles para este usuario</h2>
   </section>
