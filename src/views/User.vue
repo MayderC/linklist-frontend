@@ -28,11 +28,10 @@ export default defineComponent({
   created() {
     if (!this.isLogin) {
       const { user } = this.$route.params;
-      console.log(user);
+
       getUserLinks(user).then((res) => {
         if (res.links) {
           this.userLinks = res.links;
-          console.log(this.userLinks);
         }
       });
     }
