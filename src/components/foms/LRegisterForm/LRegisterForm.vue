@@ -5,17 +5,19 @@
 
       <section class="form__input--first">
         <l-input
-          @update:input="(argument) => update({ user: argument })"
+          @update:input="user = $event"
           pholder="Ingrese su usuario"
           input="text"
           id="username"
+          :value="user"
           @keyup.enter="NextFocus('email_register')"
         ></l-input>
 
         <l-input
-          @update:input="(argument) => update({ email: argument })"
+          @update:input="email = $event"
           pholder="Ingrese su correo electronico"
           input="email"
+          :value="email"
           id="email_register"
           @keyup.enter="NextFocus('remail')"
         ></l-input>
@@ -29,18 +31,20 @@
         ></l-input>
         -->
         <l-input
-          @update:input="(argument) => update({ password: argument })"
+          @update:input="password = $event"
           pholder="Ingrese su contraseña"
           :input="type_pass"
+          :value="password"
           id="password_register"
           @keyup.enter="NextFocus('rpassword')"
         ></l-input>
 
         <l-input
-          @update:input="(argument) => update({ rpassword: argument })"
+          @update:input="rpassword = $event"
           pholder="Repita su contraseña"
           :input="type_pass"
           id="rpassword"
+          :value="rpassword"
           @keyup.enter="sendData"
         ></l-input>
 
@@ -86,9 +90,6 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["updateSateFromStorage"]),
-    update(value: string) {
-      Object.assign(this, value);
-    },
 
     showPass() {
       this.type_pass == "password"
@@ -178,10 +179,10 @@ export default defineComponent({
   background-color: #fff;
   border-radius: 10px;
 }
-.form__login {
+/* .form__login {
   display: flex;
   flex-direction: column;
-}
+} */
 .form__register {
   h2 {
     color: #6d71f9;
@@ -196,7 +197,7 @@ export default defineComponent({
   margin-top: 20px;
 }
 
-.form__recovery--link {
+/* .form__recovery--link {
   margin-top: 20px;
   margin-bottom: 20px;
   font-weight: bold;
@@ -204,22 +205,22 @@ export default defineComponent({
     text-align: center;
     color: #6d71f9;
     text-decoration: none;
-  }
-  .link__recovery:hover {
+  } */
+/* .link__recovery:hover {
     text-decoration: underline;
-  }
-}
+  } */
+
 .form__input--first {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.form__inpunt--second {
+/* .form__inpunt--second {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
+} */
 @media (max-width: 420px) {
   .form {
     width: 92%;

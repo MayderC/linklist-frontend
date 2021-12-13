@@ -4,20 +4,25 @@
       <l-input
         input="text"
         id="link_input"
-        @update:input="(argument) => setLink(argument, 'link')"
+        :value="link"
+        @update:input="link = $event"
         pholder="Ingresa tu link"
       ></l-input>
+      <p class="link__error" v-if="link_error">
+        El link tiene que tener más de 12 caracteres
+      </p>
       <l-input
         input="text"
+        :value="name"
         id="name_input"
-        @update:input="(argument) => setLink(argument, 'email')"
+        @update:input="name = $event"
         pholder="Nombre de la red social"
       ></l-input>
       <div class="form__buttom-container">
         <l-buttom
           @click="saveLink"
           class="form__links--buttom"
-          text="Insertar"
+          :text="text_buttom"
         ></l-buttom>
       </div>
     </form>
@@ -37,8 +42,11 @@ export default defineComponent({
     return {
       link: "",
       name: "",
+      link_error: false,
+      text_buttom: "Insertar",
     };
   },
+
   computed: {
     ...mapState(["token"]),
   },
@@ -46,12 +54,11 @@ export default defineComponent({
   methods: {
     ...mapMutations(["pushLink"]),
 
-    setLink(value: string, input: string) {
-      if (input === "link") {
-        this.link = value;
-      } else {
-        this.name = value;
-      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    updatmeMessagesTimeOut(obj: any, time = 2500) {
+      setTimeout(() => {
+        Object.assign(this, obj);
+      }, time);
     },
 
     parseLink(link: string) {
@@ -64,7 +71,16 @@ export default defineComponent({
       };
 
       inserLink(link, this.token).then((resp) => {
-        this.pushLink(resp.link);
+        if (resp.link) {
+          this.text_buttom = "Guardado";
+          this.updatmeMessagesTimeOut({ text_buttom: "Insertar" }, 1000);
+          this.name = "";
+          this.link = "";
+          this.pushLink(resp.link);
+        } else {
+          this.link_error = true;
+          this.updatmeMessagesTimeOut({ link_error: false });
+        }
       });
     },
   },
@@ -77,6 +93,13 @@ export default defineComponent({
   width: 450px;
   padding: 20px;
   border-radius: 10px;
+}
+
+.link__error {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(255, 56, 56);
 }
 
 .form__links {

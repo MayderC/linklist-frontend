@@ -5,10 +5,10 @@
       :type="input"
       :name="name"
       :id="id"
-      @input="updateInput"
       @focusin="focus"
       @focusout="focusRemove"
       :placeholder="pholder"
+      v-model="setModel"
     />
   </div>
 </template>
@@ -19,16 +19,27 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "LInput",
   props: {
-    input: { type: String, default: "" },
     pholder: { type: String, default: "" },
     id: { type: String },
     name: { type: String },
+    value: { type: String, default: "" },
+    input: { type: String, default: "" },
   },
+
+  computed: {
+    setModel: {
+      get() {
+        return this.value;
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      set(val: any) {
+        this.$emit("update:input", val);
+      },
+    },
+  },
+
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    updateInput(e: any) {
-      this.$emit("update:input", e.target.value);
-    },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     focus(event: any) {
       event.target.parentNode.classList.add("focus-inputs");
