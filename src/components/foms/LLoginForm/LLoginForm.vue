@@ -27,12 +27,13 @@
         />
       </div>
       <div class="form__recovery--link">
+        <p class="text__error" v-if="isErr">Error los datos son incorrectos</p>
         <router-link class="link__recovery" to="/recovery">
           <p>¿Has olvidado tu contraseña?</p>
         </router-link>
       </div>
       <div class="form__btn--login">
-        <l-buttom @click="sendData" text="Login"></l-buttom>
+        <l-buttom @click="sendData" :text="Login_text"></l-buttom>
       </div>
     </form>
   </section>
@@ -52,6 +53,8 @@ export default defineComponent({
     return {
       email: "",
       password: "",
+      Login_text: "Login",
+      isErr: false,
     };
   },
   methods: {
@@ -66,20 +69,39 @@ export default defineComponent({
     },
 
     sendData() {
-      login(this.email, this.password).then((res) => {
-        if (res.token) {
-          setlocalStorage(res.token, res.user, true);
-          this.setLinks(res.links);
-          this.updateSateFromStorage();
-          this.$router.push("/home");
-        }
-      });
+      this.Login_text = "Cargando..";
+      login(this.email, this.password)
+        .then((res) => {
+          if (res.error) {
+            this.Login_text = "Login";
+            this.isErr = true;
+
+            setTimeout(() => {
+              this.isErr = false;
+            }, 1500);
+          }
+
+          if (res.token) {
+            this.Login_text = "Login";
+            setlocalStorage(res.token, res.user, true);
+            this.setLinks(res.links);
+            this.updateSateFromStorage();
+            this.$router.push("/home");
+          }
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .catch((err: any) => console.log(""));
     },
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.text__error {
+  color: rgb(255, 83, 83);
+  text-align: center;
+}
+
 .form {
   width: 360px;
   padding: 20px;

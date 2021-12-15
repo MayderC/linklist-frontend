@@ -60,7 +60,7 @@
       </section>
 
       <div class="form__btn--login">
-        <l-buttom @click="sendData" text="Siguiente"></l-buttom>
+        <l-buttom @click="sendData" :text="form__btn_text"></l-buttom>
       </div>
     </form>
   </section>
@@ -86,6 +86,7 @@ export default defineComponent({
       remail: "",
       rpassword: "",
       input_errors: [] as string[],
+      form__btn_text: "Registrar",
     };
   },
   methods: {
@@ -114,8 +115,10 @@ export default defineComponent({
       };
 
       if (this.chechInputs(user, repeat_user)) {
+        this.form__btn_text = "Cargando..";
         register(user).then((res) => {
           if (res.token) {
+            this.form__btn_text = "Registrar";
             setlocalStorage(res.token, res.user, true);
             this.updateSateFromStorage();
             this.$router.push("/home");
