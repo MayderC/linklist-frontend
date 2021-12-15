@@ -69,17 +69,18 @@ export default defineComponent({
         name: this.name.toUpperCase(),
         link: this.link,
       };
-
+      this.text_buttom = "Guardando";
       inserLink(link, this.token).then((resp) => {
         if (resp.link) {
           this.text_buttom = "Guardado";
-          this.updatmeMessagesTimeOut({ text_buttom: "Insertar" }, 1000);
+          this.updatmeMessagesTimeOut({ text_buttom: "Insertar" }, 400);
           this.name = "";
           this.link = "";
           this.pushLink(resp.link);
         } else {
           this.link_error = true;
-          this.updatmeMessagesTimeOut({ link_error: false });
+          this.updatmeMessagesTimeOut({ link_error: false }, 1100);
+          this.updatmeMessagesTimeOut({ text_buttom: "Insertar" }, 400);
         }
       });
     },
