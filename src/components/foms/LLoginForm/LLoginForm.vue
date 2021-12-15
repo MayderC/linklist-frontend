@@ -90,7 +90,10 @@ export default defineComponent({
           }
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .catch((err: any) => console.log(""));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .catch(() => {
+          return;
+        });
     },
   },
 });
