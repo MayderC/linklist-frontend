@@ -1,8 +1,5 @@
 <template>
-  <section v-if="links.length > 0" class="list">
-    <l-user-link v-for="l in links" :link="l" :key="l.id"></l-user-link>
-  </section>
-  <section v-else-if="userLinks.length > 0" class="list">
+  <section v-if="userLinks.length > 0" class="list">
     <l-user-link v-for="l in userLinks" :link="l" :key="l.id"></l-user-link>
   </section>
   <section v-if="isData" class="list text">
@@ -30,17 +27,14 @@ export default defineComponent({
     ...mapState(["links", "isLogin"]),
   },
   created() {
-    if (!this.isLogin) {
-      const { user } = this.$route.params;
-
-      getUserLinks(user).then((res) => {
-        if (res.links) {
-          this.userLinks = res.links;
-          return;
-        }
-        this.isData = true;
-      });
-    }
+    const { user } = this.$route.params;
+    getUserLinks(user).then((res) => {
+      if (res.links) {
+        this.userLinks = res.links;
+        return;
+      }
+      this.isData = true;
+    });
   },
 });
 </script>

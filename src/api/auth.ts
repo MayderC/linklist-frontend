@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 const URI = `${process.env.VUE_APP_API_URI}/auth`;
 
 export const login = async (email: string, password: string) => {

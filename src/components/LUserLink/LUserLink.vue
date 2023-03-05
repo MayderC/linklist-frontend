@@ -12,7 +12,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "LUserLink",
   props: {
-    link: {},
+    link: {
+      type: Object,
+      required: true,
+    },
   },
 });
 </script>
