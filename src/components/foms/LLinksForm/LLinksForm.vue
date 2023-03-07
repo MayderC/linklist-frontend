@@ -19,9 +19,15 @@
         @click="() => (name = getDomainName())"
         pholder="Name"
       ></l-input>
+      <l-color-suggested
+        :name="name"
+        :selected-color="selectedColor"
+        @update:color="(args) => (selectedColor = args)"
+      ></l-color-suggested>
       <div class="form__buttom-container">
         <l-buttom
           @click="saveLink"
+          @pick:color="(args) => (backgroundColor = args)"
           class="form__links--buttom"
           :text="text_buttom"
         ></l-buttom>
@@ -36,6 +42,8 @@ import LInput from "../LInput.vue";
 import LButtom from "../../LButtom/LButtom.vue";
 import { inserLink } from "@/api/crud";
 import { mapState, mapMutations } from "vuex";
+import { calculateTextColor, recomendedColor } from "@/helpers/suggestedColors";
+import LColorSuggested from "@/components/colorSuggested/LColorSuggested.vue";
 
 export default defineComponent({
   name: "LLinksForm",
@@ -43,15 +51,18 @@ export default defineComponent({
     return {
       link: "",
       name: "",
+      backgroundColor: "",
       link_error: false,
       text_buttom: "Insert",
+      selectedColor: "",
+      textColor: "",
     };
   },
 
   computed: {
     ...mapState(["token"]),
   },
-  components: { LInput, LButtom },
+  components: { LInput, LButtom, LColorSuggested },
   methods: {
     ...mapMutations(["pushLink"]),
 
@@ -71,9 +82,19 @@ export default defineComponent({
     getDomainName() {
       if (!this.isValidURL()) return "";
       const urlObject = new URL(this.link);
-      const domainParts = urlObject.hostname.replace("www.", "").split(".");
-      console.log(urlObject);
-      return domainParts[0];
+      const domainParts = urlObject.hostname.replace("www.", "").split(".")[0];
+      const finalName = domainParts[0].toUpperCase() + domainParts.slice(1);
+      const defaulsNames = this.isDefaultName(urlObject.hostname);
+      const result = defaulsNames ? defaulsNames : finalName;
+      this.selectedColor = recomendedColor(result);
+      this.textColor = calculateTextColor(this.selectedColor);
+      return result;
+    },
+    isDefaultName(key: string) {
+      const names: { [key: string]: string } = {
+        "t.me": "Telegram",
+      };
+      return names[key] || "";
     },
     parseLink(link: string) {
       return link;
@@ -85,8 +106,9 @@ export default defineComponent({
         return;
       }
       const request = {
-        name: this.name.toUpperCase(),
+        name: this.name,
         link: this.link,
+        backgroundColor: this.selectedColor,
       };
       this.text_buttom = "Saving...";
       inserLink(request, this.token).then((resp) => {
