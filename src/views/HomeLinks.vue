@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import LInfoLinksHome from "@/components/LAsideInfo/LInfoLinksHome.vue";
-import LLinksForm from "@/components/foms/LLinksForm/LLinksForm.vue";
+import LLinksForm from "@/components/form/LLinksForm/LLinksForm.vue";
 import LHomeFooter from "@/components/LHomeFooter/LHomeFooter.vue";
 import { mapState } from "vuex";
 

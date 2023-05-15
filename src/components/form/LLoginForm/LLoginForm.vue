@@ -173,11 +173,10 @@ export default defineComponent({
   border: 2px solid #6d71f9;
 }
 
-@media (max-width: 420px) {
-  .form {
-    width: 92%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.form {
+  width: 360px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 </style>
