@@ -1,9 +1,9 @@
 <template>
-  <section v-if="userLinks.length > 0" class="list">
-    <l-user-link v-for="l in userLinks" :link="l" :key="l.id"></l-user-link>
-  </section>
-  <section v-if="userLinks.length == 0 || isData == false" class="list text">
+  <section v-if="isData === false" class="list text">
     <h2>No hay Links disponibles para este usuario</h2>
+  </section>
+  <section v-else class="list">
+    <l-user-link v-for="l in userLinks" :link="l" :key="l.id"></l-user-link>
   </section>
 </template>
 
@@ -29,8 +29,9 @@ export default defineComponent({
   created() {
     const { user } = this.$route.params;
     getUserLinks(user).then((res) => {
-      if (res.links) {
-        this.userLinks = res.links;
+      if (res && res.length > 0) {
+        this.userLinks = res;
+        this.isData = true;
         return;
       }
       this.isData = false;
