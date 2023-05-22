@@ -1,7 +1,7 @@
 <template>
   <section class="form">
     <form>
-      <p>Se enviara un link a su correo para que restaurar su contraseña.</p>
+      <p>Enviaremos un link a su correo para restaurar su contraseña.</p>
       <div class="input">
         <LInput :disabledB="true" pholder="En desarrollo"></LInput>
       </div>

@@ -15,7 +15,7 @@ export default defineComponent({
 </script>
 <style scoped>
 main {
-  min-height: calc(100vh - 60px);
+  min-height: calc(80vh - 60px);
   display: grid;
   place-items: center;
 }
