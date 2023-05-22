@@ -1,18 +1,48 @@
 <template>
   <a class="link__wrapper" :href="link.link" target="_blank">
-    <div class="link__link">
+    <div
+      class="link__link"
+      :style="{
+        backgroundColor: link.backgroundColor,
+        color: colorText,
+      }"
+    >
       {{ link.name }}
     </div>
   </a>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { calculateTextColor } from "@/helpers/suggestedColors";
+import { defineComponent, PropType } from "vue";
+
+interface PropLink {
+  name: string;
+  link?: string;
+  backgroundColor: string;
+}
 
 export default defineComponent({
   name: "LUserLink",
+  data() {
+    return {
+      colorText: "",
+    };
+  },
+  mounted() {
+    this.colorText = calculateTextColor(this.link.backgroundColor);
+  },
+  watch: {
+    "link.backgroundColor"() {
+      this.colorText = calculateTextColor(this.link.backgroundColor);
+    },
+  },
+
   props: {
-    link: {},
+    link: {
+      type: Object as PropType<PropLink>,
+      required: true,
+    },
   },
 });
 </script>
@@ -22,7 +52,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  background-color: #fff;
   width: 300px;
   padding: 0.5em 0;
 

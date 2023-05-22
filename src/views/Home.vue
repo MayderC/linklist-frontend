@@ -23,8 +23,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import LInfoHome from "@/components/LAsideInfo/LInfoHome.vue";
-import LLoginForm from "@/components/foms/LLoginForm/LLoginForm.vue";
-import LRegisterForm from "@/components/foms/LRegisterForm/LRegisterForm.vue";
+import LLoginForm from "@/components/form/LLoginForm/LLoginForm.vue";
+import LRegisterForm from "@/components/form/LRegisterForm/LRegisterForm.vue";
 import { mapState } from "vuex";
 
 export default defineComponent({

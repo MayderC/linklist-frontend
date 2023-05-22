@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <a href="">
-      <p>
-        {{ link.name }}
-      </p>
+  <div class="tag">
+    <a href="" target="_blank">
+      <p>{{ link.name }}</p>
     </a>
-    <span @click="deleteLInk"
-      ><img src="../../assets/img/borrar.png" alt="" srcset=""
-    /></span>
+    <div class="btn" @click="handleDelete">
+      <img src="../../assets/img/borrar.png" alt="" srcset="" />
+    </div>
   </div>
 </template>
 
@@ -18,6 +16,11 @@ import { mapState } from "vuex";
 
 export default defineComponent({
   name: "LTagLinkName",
+  data() {
+    return {
+      flagDelete: false,
+    };
+  },
   props: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     link: {} as any,
@@ -26,31 +29,41 @@ export default defineComponent({
     ...mapState(["token"]),
   },
   methods: {
-    deleteLInk() {
+    handleDelete(e: Event) {
+      console.log(e.stopPropagation());
+      this.flagDelete = true;
       deleteLink(this.token, this.link._id).then((res) => {
         this.$emit("delete:link", res.link);
       });
+    },
+    isDelete(e: Event) {
+      if (this.flagDelete) e.preventDefault();
     },
   },
 });
 </script>
 
 <style lang="scss" scoped>
-div {
+.tag {
   display: flex;
-
-  span {
+  padding: 0.3em 2.5em;
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+  .btn {
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin-left: 10px;
+    position: absolute;
+    right: 10px;
+    top: 7px;
     img {
       width: 20px;
       transition: 0.3s;
     }
   }
 
-  span:hover img {
+  .btn:hover img {
     transform: scale(1.2);
     transition: 0.3s;
     background-color: rgb(255, 182, 182);
@@ -58,17 +71,29 @@ div {
   }
 }
 a {
+  display: block;
+  width: 100%;
   text-decoration: none;
   color: #2b2d62;
-  display: flex;
+  justify-content: center;
 }
 
 p {
-  background-color: #fff;
-  padding: 0.3em 2.5em;
-  border-radius: 10px;
   font-weight: bold;
-  display: flex;
-  align-items: center;
+  text-align: center;
+}
+
+.tag {
+  width: 360px;
+}
+
+@media (min-width: 800px) {
+  .tag:hover img {
+    display: block;
+  }
+
+  img {
+    display: none;
+  }
 }
 </style>

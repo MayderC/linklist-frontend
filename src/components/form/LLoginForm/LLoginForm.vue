@@ -2,28 +2,24 @@
   <section class="form">
     <form class="form__login">
       <h2>Login</h2>
-      <div class="form__container container--email">
+      <div class="container--email">
         <label for="email"></label>
-        <input
+        <l-input
           type="email"
           name="email"
           id="email"
-          v-model="email"
+          @update:input="email = $event"
           @focusin="focus"
           @focusout="focusRemove"
-          placeholder="Ingrese su correo electronico"
+          pholder="Ingrese su correo electronico"
         />
       </div>
-      <div class="form__container container--password">
+      <div class="container--password">
         <label for="password"></label>
-        <input
+        <l-input
           type="password"
-          name="password"
-          id="password"
-          v-model="password"
-          @focusin="focus"
-          @focusout="focusRemove"
-          placeholder="Ingrese su contraseña"
+          @update:input="password = $event"
+          pholder="Ingrese su contraseña"
         />
       </div>
       <div class="form__recovery--link">
@@ -45,10 +41,11 @@ import LButtom from "@/components/LButtom/LButtom.vue";
 import { login } from "../../../api/auth";
 import { setlocalStorage } from "@/helpers/setLocalStore";
 import { mapMutations } from "vuex";
+import LInput from "@/components/form/LInput.vue";
 
 export default defineComponent({
   name: "LLoginForm",
-  components: { LButtom },
+  components: { LInput, LButtom },
   data() {
     return {
       email: "",
@@ -131,15 +128,6 @@ export default defineComponent({
   justify-content: center;
 }
 
-.form__container {
-  border: 2px solid rgb(212, 212, 212);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  border-radius: 20px;
-}
-
 .form__container input {
   border: 0;
   outline: 0;
@@ -173,11 +161,10 @@ export default defineComponent({
   border: 2px solid #6d71f9;
 }
 
-@media (max-width: 420px) {
-  .form {
-    width: 92%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.form {
+  width: 360px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
 }
 </style>

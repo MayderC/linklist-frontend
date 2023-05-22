@@ -26,7 +26,7 @@ export default createStore({
       }
     },
 
-    clearVuex(state){
+    clearVuex(state) {
       state.isLogin = false;
       state.user = "";
       state.token = "";
