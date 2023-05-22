@@ -56,7 +56,7 @@ export default defineComponent({
     align-items: center;
     position: absolute;
     right: 10px;
-    top: 7px;
+    top: -12px;
     img {
       width: 20px;
       transition: 0.3s;
