@@ -2,7 +2,7 @@
   <section v-if="userLinks.length > 0" class="list">
     <l-user-link v-for="l in userLinks" :link="l" :key="l.id"></l-user-link>
   </section>
-  <section v-if="isData" class="list text">
+  <section v-else class="list text">
     <h2>No hay Links disponibles para este usuario</h2>
   </section>
 </template>
@@ -19,7 +19,6 @@ export default defineComponent({
     return {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       userLinks: [] as any,
-      isData: false,
     };
   },
   components: { LUserLink },
@@ -33,7 +32,6 @@ export default defineComponent({
         this.userLinks = res.links;
         return;
       }
-      this.isData = true;
     });
   },
 });
