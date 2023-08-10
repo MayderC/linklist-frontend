@@ -21,8 +21,8 @@ export const recomendedColor = (name: string): string => {
     ? defaults[name.toUpperCase()]
     : "#ffffff";
 };
-export const colorsSuggested = () => Object.values(suggested);
-export const calculateTextColor = (color: string) => {
+export const colorsSuggested = (): string[] => Object.values(suggested);
+export const calculateTextColor = (color: string): string => {
   const r = parseInt(color.substring(1, 3), 16);
   const g = parseInt(color.substring(3, 5), 16);
   const b = parseInt(color.substring(5, 7), 16);

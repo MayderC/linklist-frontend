@@ -40,7 +40,7 @@ export default defineComponent({
       this.$emit("update:color", color);
     },
     inputColor(e: Event) {
-      this.$emit("update:color", (e.target as HTMLInputElement).value!);
+      this.$emit("update:color", (e.target as HTMLInputElement).value);
     },
   },
   components: { LTagColor, LUserLink },
